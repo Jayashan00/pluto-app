@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Marhey', sans-serif;
+}
+
+.font-gloomie {
+  font-family: 'Gloomie Saturday', cursive;
+}
