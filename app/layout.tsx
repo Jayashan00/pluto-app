@@ -13,7 +13,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Marhey:wght@400;500;600;700&family=Gloomie+Saturday&display=swap" rel="stylesheet" />
       </head>
-      <body>{children}</body>
+      {/* Add suppressHydrationWarning right here! */}
+      <body suppressHydrationWarning>{children}</body>
     </html>
   );
 }
