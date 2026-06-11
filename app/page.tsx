@@ -330,7 +330,7 @@ export default function PlutoPage() {
       {/* FOOTER */}
       <footer className="bg-[#11173E] w-full py-4 flex items-center justify-center relative z-20">
         <p className="text-white text-xs tracking-wider" >
-          @2024 Pluto All Right Reserved
+          @2026 Pluto All Right Reserved
         </p>
       </footer>
     </div>
