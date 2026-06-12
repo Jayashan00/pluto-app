@@ -230,17 +230,23 @@ export default function PlutoPage() {
                 </div>
               </motion.div>
 
-              {/* Right Top Image */}
+              {/* Right Top Image - ANIMATED PLANET */}
               <motion.div
                 variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }}
                 whileHover={{ scale: 1.02 }}
-                className="border-4 border-black bg-white rounded-xl overflow-hidden shadow-lg hidden md:block relative z-10 md:col-span-2 lg:col-span-1" style={{ minHeight: "380px" }}
+                className="border-4 border-black bg-[#11173E] rounded-xl overflow-hidden shadow-lg hidden md:block relative z-10 md:col-span-2 lg:col-span-1" style={{ minHeight: "380px" }}
               >
-                <img src="/Image161.png" alt="planets" className="w-full h-full object-cover" />
+                <img src="/Image161.png" alt="space background" className="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none" />
+                <motion.img
+                  animate={floatSlow}
+                  src="/PlanetGif.png"
+                  alt="animated planet"
+                  className="absolute z-10 w-[60%] top-[8%] left-[8%]"
+                />
               </motion.div>
             </div>
 
-            {/* Floating Bear 1 - Centers beautifully on Tablet and Desktop */}
+            {/* Floating Bear 1 */}
             <motion.img
               animate={float}
               src="/Image8.png"
@@ -248,7 +254,7 @@ export default function PlutoPage() {
               className="hidden md:block absolute -bottom-6 md:left-[50%] lg:left-[33.33%] -translate-x-1/2 w-32 xl:w-36 z-30 drop-shadow-xl pointer-events-none"
             />
 
-            {/* Floating Bear 2 - Desktop Only (Tablet only has 2 columns!) */}
+            {/* Floating Bear 2 */}
             <motion.img
               animate={floatSlow}
               src="/Image2.png"
@@ -309,30 +315,43 @@ export default function PlutoPage() {
             </motion.div>
           </div>
 
-          {/* ================ ROW 3 ================ */}
+          {/* ================ ROW 3 (FULLY UPDATED TO MATCH REFERENCE IMAGE) ================ */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
             {/* Join Now */}
             <motion.div
               variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }}
               whileHover={{ y: -5, boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)" }}
-              className="border-4 border-black bg-white p-8 rounded-xl shadow-lg flex flex-col items-center text-center group transition-shadow duration-300 cursor-pointer relative overflow-hidden"
+              className="border-4 border-black bg-white p-6 rounded-xl shadow-lg flex flex-col items-center justify-between text-center group transition-shadow duration-300 cursor-pointer relative overflow-hidden" style={{ minHeight: "380px" }}
             >
               <img src="/Botcalm_cartoon_type_vastness_of_space_distant_planets__dark_bl_76e8397f120d436a86d390dbf063213e2.png" alt="bg" className="absolute inset-0 w-full h-full object-cover opacity-[0.12] pointer-events-none" />
-              <div className="relative z-10 w-full flex flex-col items-center">
-                <p className="text-[#11173E] text-[15px] leading-relaxed mb-8 font-semibold">
+
+              <div className="relative z-10 w-full flex flex-col items-center h-full">
+                <p className="text-[#11173E] text-[15px] leading-relaxed font-semibold mt-2">
                   Embark on an interstellar journey with us! Join the Pluto Token community today and be part of a vibrant group of explorers, innovators, and dreamers.
                 </p>
-                <div className="flex items-center gap-3 mb-6">
-                  <motion.div
-                    whileHover={{ rotate: 45 }}
-                    className="w-10 h-10 rounded-full bg-black flex items-center justify-center"
-                  >
-                    <span className="text-white text-xl">↗</span>
+
+                <div className="flex items-center justify-center gap-3 my-6 w-full">
+                  <motion.div whileHover={{ scale: 1.1 }} className="w-12 h-12 rounded-full bg-black flex items-center justify-center shrink-0">
+                    {/* Paper Plane Icon */}
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                      <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                    </svg>
                   </motion.div>
-                  <p style={{ fontFamily: "'Gloomie Saturday', cursive", color: "#11173E", fontSize: "46px", lineHeight: 1 }} className="group-hover:text-[#FA9231] transition-colors">JOIN NOW</p>
+
+                  <p style={{ fontFamily: "'Gloomie Saturday', cursive", color: "#000", fontSize: "44px", lineHeight: 1 }} className="mt-2 tracking-wide">JOIN NOW</p>
+
+                  <motion.div whileHover={{ scale: 1.1 }} className="w-12 h-12 rounded-full bg-black flex items-center justify-center shrink-0">
+                    {/* Layers/Blockchain Icon */}
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <polygon points="12 2 2 7 12 12 22 7 12 2" />
+                      <polyline points="2 17 12 22 22 17" />
+                      <polyline points="2 12 12 17 22 12" />
+                    </svg>
+                  </motion.div>
                 </div>
-                <img src="/Image5.png" alt="bear" className="w-36" />
+
+                <img src="/Image5.png" alt="bear" className="w-36 mt-auto" />
               </div>
             </motion.div>
 
@@ -344,7 +363,7 @@ export default function PlutoPage() {
             >
               <img src="/Botcalm_cartoon_type_vastness_of_space_distant_planets__dark_bl_76e8397f120d436a86d390dbf063213e2.png" alt="bg" className="absolute inset-0 w-full h-full object-cover opacity-[0.12] pointer-events-none" />
               <div className="relative z-10">
-                <h2 className="text-[42px] font-bold mb-6 text-[#11173E]">Our Story</h2>
+                <h2 style={{ fontFamily: "'Gloomie Saturday', cursive" }} className="text-[54px] font-normal mb-4 text-[#11173E] tracking-wide">Our Story</h2>
                 <p className="text-[#11173E] leading-relaxed text-[15px] font-semibold">
                   In the vast expanse of the digital universe, Pluto Token was born—a small but powerful entity destined to make a big impact. Much like Pluto, which was once seen as a distant and enigmatic world at solar system, Pluto Token represents the spirit of exploration and discovery in the crypto space. With a mission to bring innovation and inclusivity to the world of digital assets.
                 </p>
@@ -355,19 +374,36 @@ export default function PlutoPage() {
             <motion.div
               variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }}
               whileHover={{ scale: 1.02 }}
-              className="border-4 border-black bg-[#0f172a] rounded-xl shadow-lg relative overflow-hidden flex flex-col items-center justify-center text-center cursor-pointer group md:col-span-2 lg:col-span-1" style={{ minHeight: "380px" }}
+              className="border-4 border-black bg-[#0f172a] rounded-xl shadow-lg relative overflow-hidden cursor-pointer group md:col-span-2 lg:col-span-1" style={{ minHeight: "380px" }}
             >
               <img src="/Image41(1).png" alt="bg" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 pointer-events-none" />
-              <div className="relative z-10">
+
+              <div className="relative z-10 w-full h-full">
+                {/* Red Circle placed top left just like in the image */}
                 <motion.div
                   whileHover={{ scale: 1.1, rotate: -5 }}
                   whileTap={{ scale: 0.95 }}
-                  className="relative inline-block mb-6"
+                  className="absolute top-12 left-6 sm:left-10 w-44"
                 >
-                  <img src="/Image12.png" alt="buy now" className="w-52" />
-                  <p style={{ fontFamily: "'Gloomie Saturday', cursive", color: "#000", fontSize: "38px", position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}>BUY NOW</p>
+                  <img src="/Image12.png" alt="buy now bg" className="w-full drop-shadow-xl" />
+                  <p style={{
+                    fontFamily: "'Gloomie Saturday', cursive",
+                    color: "#000",
+                    fontSize: "38px",
+                    position: "absolute",
+                    top: "50%",
+                    left: "50%",
+                    transform: "translate(-50%, -50%)",
+                    lineHeight: 0.9,
+                    textAlign: "center",
+                    marginTop: "4px"
+                  }}>
+                    BUY<br/>NOW
+                  </p>
                 </motion.div>
-                <motion.img animate={floatSlow} src="/Image7.png" alt="bear" className="w-40 mx-auto" />
+
+                {/* Bear placed bottom right just like in the image */}
+                <motion.img animate={floatSlow} src="/Image7.png" alt="bear" className="absolute bottom-4 right-4 sm:right-8 w-40 drop-shadow-2xl" />
               </div>
             </motion.div>
           </div>
