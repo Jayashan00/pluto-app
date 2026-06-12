@@ -93,10 +93,10 @@ export default function PlutoPage() {
             style={{
               fontFamily: "'Gloomie Saturday', cursive",
               color: "#FA9231",
-              fontSize: "170px",
-              lineHeight: 1,
+              fontSize: "80px",
+              lineHeight: 0.1,
               top: "40px",
-              left: "12%"
+              left: "25%"
             }}
           >
             PLUTO
