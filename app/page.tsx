@@ -211,12 +211,59 @@ export default function PlutoPage() {
             PLUTO
           </motion.p>
 
-          <motion.img
+          {/* ================ 3D ANIMATED LAPTOP COMPONENT ================ */}
+          <motion.div
             initial={{ opacity: 0, y: 100 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            src="/LapMockup.png" alt="laptop" className="absolute top-10 left-[24%] w-[48%] z-20 hover:scale-[1.02] transition-transform duration-500"
-          />
+            className="absolute top-16 left-[24%] w-[48%] z-20 group"
+            style={{ perspective: "2000px" }}
+          >
+            {/* 3D Laptop Lid */}
+            <motion.div
+              initial={{ rotateX: -88 }} // Start completely folded down/closed
+              animate={{ rotateX: -5 }}  // Hinge open to a slight backward tilt
+              transition={{ type: "spring", bounce: 0.35, duration: 2, delay: 1 }}
+              style={{ transformOrigin: "bottom", transformStyle: "preserve-3d" }}
+              className="w-[90%] mx-auto aspect-video bg-[#E6EDF5] border-4 border-black rounded-t-3xl p-2 md:p-3 relative shadow-[0_0_30px_rgba(0,0,0,0.5)] z-20"
+            >
+              {/* Screen Bezel & Content */}
+              <div className="w-full h-full bg-[#000] border-2 border-black rounded-xl overflow-hidden relative shadow-inner">
+
+                {/* Screen Content - Powers on AFTER laptop opens */}
+                <motion.div
+                  initial={{ opacity: 0, filter: "brightness(0)" }}
+                  animate={{ opacity: 1, filter: "brightness(1)" }}
+                  transition={{ delay: 2.5, duration: 1.2, ease: "easeOut" }}
+                  className="relative z-10 w-full h-full"
+                >
+                   {/* Displaying the user's requested dashboard image layout */}
+                   <img src="/image_93c1e0.png" alt="Pluto Website Layout" className="w-full h-full object-cover" />
+                   {/* Optional: Slight screen glare effect for realism */}
+                   <div className="absolute inset-0 bg-gradient-to-tr from-white/5 to-transparent pointer-events-none mix-blend-overlay"></div>
+                </motion.div>
+              </div>
+
+              {/* The Back Cover (visible when closed) */}
+              <div
+                className="absolute inset-0 bg-[#E6EDF5] rounded-t-3xl border-4 border-black flex items-center justify-center"
+                style={{ transform: "translateZ(-2px) rotateY(180deg)", backfaceVisibility: "hidden" }}
+              >
+                <div className="w-16 h-16 rounded-full border-4 border-[#11173E]/20 flex items-center justify-center">
+                   <img src="/Image211.png" alt="Pluto Logo" className="w-10 h-10 opacity-30 grayscale" />
+                </div>
+              </div>
+            </motion.div>
+
+            {/* 3D Laptop Base / Keyboard Deck */}
+            <div className="w-full h-6 md:h-8 bg-[#E6EDF5] border-4 border-black rounded-b-2xl relative z-10 flex justify-center shadow-[0_25px_50px_rgba(0,0,0,0.8)]">
+              {/* Trackpad Indentation */}
+              <div className="w-24 md:w-32 h-2 md:h-3 bg-black/10 rounded-b-lg border-x-2 border-b-2 border-black/15"></div>
+            </div>
+            {/* Bottom Lip shadow */}
+            <div className="w-[96%] mx-auto h-2 md:h-3 bg-gray-800 rounded-b-3xl border-x-4 border-b-4 border-black -mt-1 relative z-0"></div>
+          </motion.div>
+          {/* ================ END 3D LAPTOP ================ */}
 
           <motion.img
             animate={float}
