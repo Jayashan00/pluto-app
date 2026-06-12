@@ -281,10 +281,10 @@ export default function PlutoPage() {
           onClick={() => showToast("Exploring the cosmos... 🚀")}
         >
           {[...Array(6)].map((_, i) => (
-            <span key={i} className="text-black font-bold text-xl mx-8 tracking-widest uppercase flex items-center gap-8">
-              🚀 To the Moon <span className="w-3 h-3 bg-black rounded-full"></span>
-              🪐 Explore the Cosmos <span className="w-3 h-3 bg-black rounded-full"></span>
-              ⭐ Join the Community <span className="w-3 h-3 bg-black rounded-full"></span>
+            <span key={i} className="text-black font-bold text-base mx-8 tracking-widest uppercase flex items-center gap-8">
+              🚀 To the Moon <span className="w-2.5 h-2.5 bg-black rounded-full"></span>
+              🪐 Explore the Cosmos <span className="w-2.5 h-2.5 bg-black rounded-full"></span>
+              ⭐ Join the Community <span className="w-2.5 h-2.5 bg-black rounded-full"></span>
             </span>
           ))}
         </motion.div>
