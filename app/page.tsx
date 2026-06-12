@@ -118,7 +118,7 @@ export default function PlutoPage() {
           {/* Bear - Moved much closer (left: 10%) */}
           <motion.img
             animate={floatSlow}
-            src="/Image3.png" alt="bear" className="absolute bottom-6 left-[10%] w-[15%] z-40"
+            src="/Image3.png" alt="bear" className="absolute bottom-6 left-[15%] w-[15%] z-40"
           />
 
           {/* Social Icons - ALL 3 in Blue Circles */}
