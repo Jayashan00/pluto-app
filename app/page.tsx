@@ -1,12 +1,24 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function PlutoPage() {
+  const [activeFaq, setActiveFaq] = useState<number | null>(null);
+  const [ethAmount, setEthAmount] = useState<string>("");
+
   // Animation presets for easy reuse
   const fadeUp = {
     hidden: { opacity: 0, y: 40 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+  };
+
+  const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.2 }
+    }
   };
 
   const float = {
@@ -30,6 +42,13 @@ export default function PlutoPage() {
     }
   };
 
+  // FAQ Data
+  const faqs = [
+    { question: "What is Pluto Token?", answer: "Pluto Token is a community-driven celestial cryptocurrency designed to bring innovation and exploration to the digital asset space." },
+    { question: "Is the Liquidity Locked?", answer: "Yes! To ensure the safety of our explorers, all initial liquidity has been securely burnt and locked away in the deepest part of the cosmos." },
+    { question: "How do I track my cosmic rewards?", answer: "You can track your holdings directly through your connected decentralized wallet (like MetaMask or Trust Wallet) or by viewing the token contract on the block explorer." }
+  ];
+
   return (
     <div className="bg-white min-h-screen overflow-x-hidden">
       {/* NAVBAR */}
@@ -39,7 +58,6 @@ export default function PlutoPage() {
         transition={{ duration: 0.5, ease: "easeOut" }}
         className="w-full h-[66px] bg-[#11173E] flex items-center justify-between px-4 md:px-10 sticky top-0 z-50 shadow-md"
       >
-        {/* Name and Logo Group */}
         <div className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity">
           <span style={{ fontFamily: "'Gloomie Saturday', cursive", color: "#FA9231", fontSize: "28px", lineHeight: 1, marginTop: "4px" }}>
             PLUTO
@@ -139,7 +157,24 @@ export default function PlutoPage() {
         </div>
       </section>
 
-      {/* CONTENT SECTIONS */}
+      {/* INFINITE MARQUEE BANNER */}
+      <div className="w-full bg-[#FA9231] border-y-4 border-black overflow-hidden py-3 relative z-20">
+        <motion.div
+          animate={{ x: ["0%", "-50%"] }}
+          transition={{ ease: "linear", duration: 15, repeat: Infinity }}
+          className="flex whitespace-nowrap"
+        >
+          {[...Array(6)].map((_, i) => (
+            <span key={i} className="text-black font-bold text-xl mx-8 tracking-widest uppercase flex items-center gap-8">
+              🚀 To the Moon <span className="w-3 h-3 bg-black rounded-full"></span>
+              🪐 Explore the Cosmos <span className="w-3 h-3 bg-black rounded-full"></span>
+              ⭐ Join the Community <span className="w-3 h-3 bg-black rounded-full"></span>
+            </span>
+          ))}
+        </motion.div>
+      </div>
+
+      {/* MAIN CONTENT SECTIONS */}
       <div className="relative">
         <img
           src="/BgImage.png"
@@ -324,14 +359,218 @@ export default function PlutoPage() {
               </div>
             </motion.div>
           </div>
+
+          {/* ================ MASSIVE EXTENSION 1: CORE FEATURES ================ */}
+          <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} className="w-full mt-16">
+            <h2 style={{ fontFamily: "'Gloomie Saturday', cursive" }} className="text-[#FA9231] text-5xl text-center mb-8 tracking-wide drop-shadow-lg">Why Choose Pluto?</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {[
+                { title: "Deflationary", desc: "A portion of every transaction is burnt, making Pluto rarer by the second.", icon: "🔥" },
+                { title: "Secure", desc: "Liquidity is locked and contracts are audited to ensure a safe journey.", icon: "🛡️" },
+                { title: "Community First", desc: "No venture capital. Owned and guided entirely by the Pluto fleet.", icon: "🤝" }
+              ].map((feature, idx) => (
+                <motion.div key={idx} variants={fadeUp} whileHover={{ scale: 1.05 }} className="border-4 border-black bg-[#E6EDF5] p-6 rounded-xl shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] text-center cursor-pointer">
+                  <div className="text-5xl mb-4">{feature.icon}</div>
+                  <h3 className="text-2xl font-bold text-[#11173E] mb-2">{feature.title}</h3>
+                  <p className="text-[#11173E] font-semibold text-sm">{feature.desc}</p>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* ================ MASSIVE EXTENSION 2: PLUTO TERMINAL (SWAP UI) ================ */}
+          <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="w-full max-w-2xl mx-auto mt-20 relative">
+            <h2 style={{ fontFamily: "'Gloomie Saturday', cursive" }} className="text-white text-5xl text-center mb-6 tracking-wide drop-shadow-lg">Pluto Terminal</h2>
+            <div className="bg-[#11173E] border-4 border-black rounded-3xl p-6 md:p-8 shadow-[8px_8px_0px_0px_rgba(250,146,49,1)]">
+              <div className="flex justify-between items-center mb-6">
+                <span className="text-white font-bold">Swap</span>
+                <span className="text-white/50 text-sm hover:text-white cursor-pointer transition-colors">⚙️ Settings</span>
+              </div>
+
+              <div className="bg-[#0b0f24] border-2 border-black rounded-xl p-4 mb-2">
+                <p className="text-white/50 text-xs font-bold mb-2">You Pay</p>
+                <div className="flex justify-between items-center">
+                  <input
+                    type="number"
+                    value={ethAmount}
+                    onChange={(e) => setEthAmount(e.target.value)}
+                    placeholder="0.0"
+                    className="bg-transparent text-3xl text-white font-bold w-full focus:outline-none"
+                  />
+                  <div className="flex items-center gap-2 bg-[#1A2352] px-3 py-1.5 rounded-lg border border-black cursor-pointer hover:bg-[#2a346e] transition-colors">
+                    <span className="text-xl">🔷</span>
+                    <span className="text-white font-bold">ETH</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex justify-center -my-3 relative z-10">
+                <motion.div whileHover={{ rotate: 180 }} className="bg-[#E6EDF5] border-2 border-black rounded-full p-2 cursor-pointer shadow-sm text-center">
+                  ⬇️
+                </motion.div>
+              </div>
+
+              <div className="bg-[#0b0f24] border-2 border-black rounded-xl p-4 mt-2 mb-6">
+                <p className="text-white/50 text-xs font-bold mb-2">You Receive</p>
+                <div className="flex justify-between items-center">
+                  <span className="text-3xl text-white/50 font-bold">{ethAmount ? (parseFloat(ethAmount) * 1420500).toLocaleString() : "0.0"}</span>
+                  <div className="flex items-center gap-2 bg-[#FA9231] px-3 py-1.5 rounded-lg border border-black cursor-pointer shadow-sm">
+                    <img src="/Image211.png" alt="pluto" className="w-5 h-5" />
+                    <span className="text-black font-bold">PLUTO</span>
+                  </div>
+                </div>
+              </div>
+
+              <motion.button
+                whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
+                className="w-full py-4 bg-[#FA9231] text-black border-4 border-black rounded-xl font-bold text-xl uppercase tracking-wider shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all"
+              >
+                Connect Wallet
+              </motion.button>
+            </div>
+          </motion.div>
+
+          {/* ================ MASSIVE EXTENSION 3: MEET THE CREW ================ */}
+          <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} className="w-full mt-24">
+            <h2 style={{ fontFamily: "'Gloomie Saturday', cursive" }} className="text-[#FA9231] text-5xl text-center mb-8 tracking-wide drop-shadow-lg">Meet The Cosmic Crew</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {[
+                { name: "Captain Paws", role: "Mission Commander", img: "/Image7.png" },
+                { name: "Astro Bear", role: "Lead Developer", img: "/Image8.png" },
+                { name: "Cub Explorer", role: "Community Manager", img: "/Image2.png" }
+              ].map((crew, idx) => (
+                <motion.div key={idx} variants={fadeUp} whileHover={{ y: -10 }} className="bg-white border-4 border-black rounded-xl p-6 text-center flex flex-col items-center shadow-[8px_8px_0px_0px_rgba(250,146,49,1)] relative overflow-hidden cursor-pointer">
+                  <div className="w-32 h-32 bg-[#E6EDF5] border-4 border-black rounded-full mb-4 flex items-center justify-center overflow-hidden">
+                    <img src={crew.img} alt={crew.name} className="w-24 h-24 object-contain mt-4" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-[#11173E]">{crew.name}</h3>
+                  <p className="text-[#FA9231] font-bold uppercase tracking-wider text-sm mt-1">{crew.role}</p>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* ================ MASSIVE EXTENSION 4: COMMUNITY TRANSMISSIONS ================ */}
+          <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="w-full mt-24">
+            <h2 style={{ fontFamily: "'Gloomie Saturday', cursive" }} className="text-white text-5xl text-center mb-8 tracking-wide drop-shadow-lg">Community Transmissions</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {[
+                { handle: "@SpaceWhale", text: "Just joined the $PLUTO mission. The tokenomics are literally out of this world! 🚀🪐" },
+                { handle: "@CryptoBear99", text: "Safest journey I've ever taken in DeFi. Liquidity locked and the community is amazing. #PlutoToken" },
+                { handle: "@LunarLambo", text: "Ditching Earth, moving to Pluto. The development team is cooking up something massive here. 👀" }
+              ].map((tweet, idx) => (
+                <motion.div key={idx} whileHover={{ scale: 1.05, rotate: idx === 1 ? -2 : 2 }} className="bg-white border-4 border-black p-6 rounded-2xl shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex flex-col justify-between cursor-pointer">
+                  <p className="text-[#11173E] font-semibold text-lg italic mb-4">"{tweet.text}"</p>
+                  <div className="flex items-center gap-3 border-t-2 border-dashed border-gray-300 pt-4 mt-auto">
+                    <div className="w-10 h-10 bg-[#FA9231] border-2 border-black rounded-full flex items-center justify-center text-xl">🐻</div>
+                    <span className="font-bold text-[#11173E]">{tweet.handle}</span>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* ================ MASSIVE EXTENSION 5: COSMIC ALLIANCES ================ */}
+          <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="w-full mt-20 mb-8 text-center">
+             <h2 className="text-white/80 font-bold uppercase tracking-widest text-sm mb-6">Cosmic Alliances & Backers</h2>
+             <div className="flex flex-wrap justify-center items-center gap-4 md:gap-8">
+                {['CoinMarketCap', 'CoinGecko', 'PancakeSwap', 'CertiK Audited', 'TrustWallet'].map((partner, idx) => (
+                  <motion.div key={idx} whileHover={{ scale: 1.1, backgroundColor: "#FA9231", color: "#11173E" }} className="px-6 py-3 bg-white/10 backdrop-blur-sm border-2 border-white/20 rounded-full text-white font-bold transition-colors cursor-pointer">
+                    {partner}
+                  </motion.div>
+                ))}
+             </div>
+          </motion.div>
+
+          {/* ================ EXTENSION 6: INTERACTIVE FAQ ================ */}
+          <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} id="faq" className="w-full max-w-4xl mx-auto mt-20 bg-white border-4 border-black rounded-xl p-8 shadow-[8px_8px_0px_0px_rgba(250,146,49,1)]">
+            <h2 className="text-4xl font-bold text-[#11173E] mb-8 text-center">Cosmic FAQ</h2>
+            <div className="space-y-4">
+              {faqs.map((faq, index) => (
+                <div key={index} className="border-2 border-black rounded-lg overflow-hidden transition-colors duration-300">
+                  <button
+                    onClick={() => setActiveFaq(activeFaq === index ? null : index)}
+                    className={`w-full text-left p-4 font-bold text-lg flex justify-between items-center transition-colors ${activeFaq === index ? 'bg-[#FA9231] text-white' : 'bg-gray-50 text-[#11173E] hover:bg-gray-100'}`}
+                  >
+                    {faq.question}
+                    <motion.span animate={{ rotate: activeFaq === index ? 180 : 0 }}>▼</motion.span>
+                  </button>
+                  <AnimatePresence>
+                    {activeFaq === index && (
+                      <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="bg-white px-4 py-4 text-[#11173E] font-semibold border-t-2 border-black">
+                        {faq.answer}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* ================ EXTENSION 7: LIVE STATS ================ */}
+          <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="mt-16 w-full border-4 border-black bg-[#FA9231] rounded-xl shadow-[8px_8px_0px_0px_rgba(17,23,62,1)] p-8 relative overflow-hidden">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center relative z-10">
+              <div>
+                <p className="text-black font-bold text-xl uppercase tracking-wider mb-2">Total Holders</p>
+                <p style={{ fontFamily: "'Gloomie Saturday', cursive" }} className="text-[#11173E] text-6xl drop-shadow-md">14,209</p>
+              </div>
+              <div className="md:border-x-4 border-black px-4">
+                <p className="text-black font-bold text-xl uppercase tracking-wider mb-2">Market Cap</p>
+                <p style={{ fontFamily: "'Gloomie Saturday', cursive" }} className="text-[#11173E] text-6xl drop-shadow-md">$2.4M</p>
+              </div>
+              <div>
+                <p className="text-black font-bold text-xl uppercase tracking-wider mb-2">Tokens Burned</p>
+                <p style={{ fontFamily: "'Gloomie Saturday', cursive" }} className="text-[#11173E] text-6xl drop-shadow-md">42%</p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* ================ EXTENSION 8: JOIN THE FLEET (NEWSLETTER) ================ */}
+          <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="mt-12 mb-8 border-4 border-black bg-white rounded-xl shadow-lg flex flex-col md:flex-row items-center justify-between p-8 md:p-12 relative overflow-hidden">
+            <img src="/Botcalm_cartoon_type_vastness_of_space_distant_planets__dark_bl_76e8397f120d436a86d390dbf063213e2.png" alt="bg" className="absolute inset-0 w-full h-full object-cover opacity-10 pointer-events-none" />
+
+            <div className="relative z-10 mb-8 md:mb-0 md:w-1/2 text-center md:text-left">
+              <h2 className="text-[42px] font-bold text-[#11173E] mb-2 leading-tight">Join the Pluto Fleet</h2>
+              <p className="text-[#11173E] font-semibold text-lg">Subscribe to get the latest cosmic updates, airdrops, and mission logs straight to your inbox.</p>
+            </div>
+
+            <div className="relative z-10 w-full md:w-1/2 flex flex-col sm:flex-row gap-4 justify-end">
+              <input type="email" placeholder="Enter your email address" className="w-full sm:w-2/3 p-4 border-4 border-black rounded-xl bg-[#E6EDF5] text-[#11173E] font-bold placeholder-[#11173E]/50 focus:outline-none focus:ring-4 focus:ring-[#FA9231] transition-all" />
+              <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="w-full sm:w-auto px-8 py-4 bg-[#11173E] text-[#FA9231] border-4 border-black rounded-xl font-bold uppercase tracking-wider shadow-[4px_4px_0px_0px_rgba(250,146,49,1)] hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all">
+                Subscribe
+              </motion.button>
+            </div>
+          </motion.div>
+
         </div>
       </div>
 
-      {/* FOOTER */}
-      <footer className="bg-[#11173E] w-full py-4 flex items-center justify-center relative z-20">
-        <p className="text-white text-xs tracking-wider" >
-          @2026 Pluto All Right Reserved
-        </p>
+      {/* ================ UPGRADED FOOTER ================ */}
+      <footer className="bg-[#11173E] w-full pt-16 pb-8 flex flex-col items-center justify-center relative z-20 border-t-4 border-black">
+        <motion.div animate={float} className="mb-6">
+          <span style={{ fontFamily: "'Gloomie Saturday', cursive", color: "#FA9231", fontSize: "48px", lineHeight: 1, textShadow: "0px 0px 20px rgba(250,146,49,0.5)" }}>
+            PLUTO
+          </span>
+        </motion.div>
+
+        <div className="flex gap-6 mb-8">
+          {['Twitter', 'Telegram', 'Discord', 'Reddit'].map((social, index) => (
+            <motion.a key={index} href="#" whileHover={{ y: -3, color: "#FA9231" }} className="text-white font-bold text-sm tracking-widest uppercase transition-colors">
+              {social}
+            </motion.a>
+          ))}
+        </div>
+
+        <div className="w-24 h-1 bg-[#FA9231] rounded-full mb-10"></div>
+
+        <div className="text-center">
+          <p className="text-white/80 text-sm tracking-wider font-semibold mb-2" >
+            © {new Date().getFullYear()} Pluto Token Project. All Rights Reserved.
+          </p>
+          <p className="text-[#FA9231] font-bold text-xs tracking-widest uppercase">
+            Developed by Jayashan Nawarathne
+          </p>
+        </div>
       </footer>
     </div>
   );
