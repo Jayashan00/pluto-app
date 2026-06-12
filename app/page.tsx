@@ -293,7 +293,7 @@ export default function PlutoPage() {
       {/* MAIN CONTENT SECTIONS */}
       <div className="relative">
         <img
-          src="/BgImage.png"
+          src="/Botcalm_cartoon_type_vastness_of_space_distant_planets__dark_bl_76e8397f120d436a86d390dbf063213e3.png"
           alt="space background"
           className="absolute inset-0 w-full h-full object-cover pointer-events-none z-0"
         />
